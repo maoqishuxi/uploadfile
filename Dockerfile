@@ -8,6 +8,10 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
+COPY /public ./public
+COPY /uploadfile ./uploadfile
+COPY .gitignore ./gitignore
+COPY Dockerfile ./Dockerfile
 COPY *.go ./
 
 RUN go build -o /uploadfile
