@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -29,7 +28,8 @@ func upload(ctx *gin.Context) {
 			return
 		}
 	}
-	ctx.String(http.StatusOK, fmt.Sprintf("%d files uploaded!", len(files)))
+	// ctx.String(http.StatusOK, fmt.Sprintf("%d files uploaded!", len(files)))
+	ctx.Redirect(http.StatusMovedPermanently, "/file")
 }
 
 func getfilelist(ctx *gin.Context) {
