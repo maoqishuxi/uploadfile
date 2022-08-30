@@ -14,8 +14,8 @@ COPY .gitignore ./gitignore
 COPY Dockerfile ./Dockerfile
 COPY *.go ./
 
-RUN go build -o /uploadfile
+RUN go build -o /docker-gs-ping
 
 EXPOSE 8000
 
-CMD ["/uploadfile"]
+CMD [ "/docker-gs-ping" ]
