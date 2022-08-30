@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 )
 
 func upload(ctx *gin.Context) {
@@ -30,12 +32,31 @@ func upload(ctx *gin.Context) {
 	ctx.String(http.StatusOK, fmt.Sprintf("%d files uploaded!", len(files)))
 }
 
+func getfilelist(ctx *gin.Context) {
+	files, err := os.ReadDir("./uploadfile")
+	if err != nil {
+		ctx.String(http.StatusBadRequest, "not exist file: %s", err.Error())
+	}
+
+	filename := make([]string, 0)
+	for _, file := range files {
+
+		filename = append(filename, filepath.Join("/uploadfile", file.Name()))
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": filename,
+	})
+}
+
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.MaxMultipartMemory = 8 << 20
 	router.StaticFile("/", "./public")
-	router.Static("/file", "./uploadfile")
+	router.StaticFS("/file", http.Dir("./uploadfile"))
 	router.POST("/upload", upload)
+	router.GET("/filelist", getfilelist)
 
 	router.Run(":8000")
 }
