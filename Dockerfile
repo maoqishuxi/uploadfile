@@ -7,6 +7,7 @@ WORKDIR /app
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
+RUN go get github.com/gin-gonic/gin/binding@v1.8.1
 
 COPY /public ./public
 COPY /uploadfile ./uploadfile

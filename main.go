@@ -41,7 +41,7 @@ func getfilelist(ctx *gin.Context) {
 	filename := make([]string, 0)
 	for _, file := range files {
 
-		filename = append(filename, filepath.Join("/uploadfile", file.Name()))
+		filename = append(filename, filepath.Join("/file", file.Name()))
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
