@@ -58,5 +58,6 @@ func main() {
 	router.POST("/upload", upload)
 	router.GET("/filelist", getfilelist)
 
-	router.Run(":8000")
+	// router.Run(":8000")
+	router.RunTLS(":8000", "./julai/julai.fun.pem", "./julai/julai.fun.key")
 }
