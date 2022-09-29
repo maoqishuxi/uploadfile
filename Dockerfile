@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.16-alpine
+FROM golang:1.19-alpine
 
 WORKDIR /app
 
@@ -11,6 +11,7 @@ RUN go get github.com/gin-gonic/gin/binding@v1.8.1
 
 COPY /public ./public
 COPY /uploadfile ./uploadfile
+COPY /julai ./julai
 COPY .gitignore ./gitignore
 COPY Dockerfile ./Dockerfile
 COPY *.go ./
