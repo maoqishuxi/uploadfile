@@ -24,7 +24,7 @@ func upload(ctx *gin.Context) {
 		log.Println(file.Filename)
 
 		if err := ctx.SaveUploadedFile(file, filename); err != nil {
-			ctx.String(http.StatusBadRequest, "upload file err: %s", err.Error())
+			ctx.String(http.StatusBadRequest, "uploadfile file err: %s", err.Error())
 			return
 		}
 	}
@@ -55,9 +55,9 @@ func main() {
 	router.MaxMultipartMemory = 8 << 20
 	router.StaticFile("/", "./public")
 	router.StaticFS("/file", http.Dir("./uploadfile"))
-	router.POST("/upload", upload)
+	router.POST("/uploadfile", upload)
 	router.GET("/filelist", getfilelist)
 
-	// router.Run(":8000")
+	//router.Run(":8000")
 	router.RunTLS(":8000", "./julai/julai.fun.pem", "./julai/julai.fun.key")
 }
