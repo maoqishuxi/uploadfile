@@ -3,6 +3,7 @@ module example
 go 1.19
 
 require (
+	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/rs/cors/wrapper/gin v0.0.0-20220619195839-da52b0701de5
 )

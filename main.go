@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
 )
@@ -53,11 +54,12 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 	router.MaxMultipartMemory = 8 << 20
-	router.StaticFile("/", "./public")
+	//router.StaticFile("/", "./public")
+	router.Use(static.Serve("/", static.LocalFile("./public", false)))
 	router.StaticFS("/file", http.Dir("./uploadfile"))
 	router.POST("/uploadfile", upload)
 	router.GET("/filelist", getfilelist)
 
-	//router.Run(":8000")
-	router.RunTLS(":8000", "./julai/julai.fun.pem", "./julai/julai.fun.key")
+	router.Run(":8000")
+	//router.RunTLS(":8000", "./julai/julai.fun.pem", "./julai/julai.fun.key")
 }
